@@ -1,13 +1,17 @@
 import sys
-
 from fastapi import FastAPI
+from pydantic import BaseModel
+
+from app.llama_cpp import run_llama_cpp
 
 version = f"{sys.version_info.major}.{sys.version_info.minor}"
-
 app = FastAPI()
 
+class Prompt(BaseModel):
+    context: str
 
-@app.get("/")
-async def read_root():
-    message = f"Hello world! From FastAPI running on Uvicorn with Gunicorn. Using Python {version}"
-    return {"message": message}
+@app.post("/text_summerize")
+async def read_root(prompt: Prompt):
+    context = prompt.context
+    result = run_llama_cpp(context)
+    return {"result": result}
