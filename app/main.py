@@ -10,7 +10,7 @@ app = FastAPI()
 class Prompt(BaseModel):
     context: str
 
-@app.post("/text_summerize")
+@app.post("/summarize-text")
 async def read_root(prompt: Prompt):
     context = prompt.context
     result = run_llama_cpp(context)
