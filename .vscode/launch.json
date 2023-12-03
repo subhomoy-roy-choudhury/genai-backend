@@ -9,6 +9,7 @@
             "type": "python",
             "request": "launch",
             "module": "uvicorn",
+            "envFile": "${workspaceFolder}/.env",
             "args": [
                 "app.main:app"
             ],
